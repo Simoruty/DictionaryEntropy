@@ -3,8 +3,7 @@ import simo.tree.GenericTree;
 
 import java.io.IOException;
 
-import static simo.entropyDict.buildTreeByDict;
-import static simo.entropyDict.entropyLevel;
+import static simo.entropyDict.*;
 
 /**
  * Created by simo on 24/06/15.
@@ -16,38 +15,13 @@ public class Runner {
 
     public static void main(String[] args) throws IOException {
         GenericTree<NodeMod> aa = buildTreeByDict(DIRDICTPATH);
-        entropyLevel(aa, 1);
+        double enTot = 0;
+        System.out.println(aa);
 
-//        /*
-//         We're building a tree that looks like this:
-//
-//         I am root!
-//             /\
-//            A  B
-//              /\
-//             C  D
-//                 \
-//                 E
-//        */
-//
-//        GenericTree<String> tree = new GenericTree<>();
-//
-//        GenericTreeNode<String> root = new GenericTreeNode<>("I am root!");
-//        GenericTreeNode<String> childA = new GenericTreeNode<>("A");
-//        GenericTreeNode<String> childB = new GenericTreeNode<>("B");
-//        GenericTreeNode<String> childC = new GenericTreeNode<>("C");
-//        GenericTreeNode<String> childD = new GenericTreeNode<>("D");
-//        GenericTreeNode<String> childE = new GenericTreeNode<>("E");
-//
-//        childD.addChild(childE);
-//
-//        childB.addChild(childC);
-//        childB.addChild(childD);
-//
-//        root.addChild(childA);
-//        root.addChild(childB);
-//
-//        tree.setRoot(root);
-
+        for (int i = 1; i < depth(aa)+1; i++) {
+            System.out.println(entropyLevel(aa,i));
+            enTot += entropyLevel(aa, i);
+        }
+        System.out.println(enTot);
     }
 }

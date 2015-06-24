@@ -25,6 +25,7 @@ public class entropyDict {
 
         GenericTree<NodeMod> tree = new GenericTree<>();
         GenericTreeNode<NodeMod> root = new GenericTreeNode<>(new NodeMod('#'));
+        root.getData().setLevel(0);
         tree.setRoot(root);
 
         List<String> lines = Files.readAllLines(Paths.get(path),
@@ -65,27 +66,64 @@ public class entropyDict {
                 }
 
             }
-//            if (words == 10) {
-//                break;
-//            }
         }
 //        System.out.println("NODE: " + tree.getRoot().getChildAt(1).getData() + " Children: " + tree.getRoot().getChildAt(1).getChildren());
         System.out.println("Word insered: " + words);
         return tree;
     }
 
+    public static int depth(GenericTree<NodeMod> tree) {
+        int max = 0;
+        List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
+        for (GenericTreeNode<NodeMod> node : nodes) {
+            if (max < node.getData().getLevel()) max = node.getData().getLevel();
+        }
+        return max;
+    }
 
     public static double entropyLevel(GenericTree<NodeMod> tree, int level) {
 
-        double entropy = 0;
-        List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
-        for (GenericTreeNode<NodeMod> node : nodes) {
-            if (node.getData().getLevel() == level) {
-                double propNode = (double) node.getData().getCount() / words;
-                entropy += propNode * (Math.log(1 / propNode) / Math.log(2));
+        if (level == 1) {
+            double entropy = 0;
+            List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
+            for (GenericTreeNode<NodeMod> node : nodes) {
+                if (node.getData().getLevel() == level) {
+                    double propNode = (double) node.getData().getCount() / words;
+                    entropy += propNode * (Math.log(1 / propNode) / Math.log(2));
+                }
             }
+            return entropy;
+
+        } else {
+            double entropy = 0;
+
+            List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
+
+            for (GenericTreeNode<NodeMod> node : nodes) {
+                if (node.getData().getLevel() == level - 1) {
+                    int allOcc = 0;
+//                    System.out.println("FIGLI " + node.getNumberOfChildren());
+                    for (GenericTreeNode<NodeMod> brothers : node.getChildren()) {
+//                        System.out.println(brothers.getData());
+                        allOcc += brothers.getData().getCount();
+                    }
+
+                    for (GenericTreeNode<NodeMod> nodeLevel : node.getChildren()) {
+                        double propNode = (double) nodeLevel.getData().getCount() / words;
+                        double propNodeCond = (double) nodeLevel.getData().getCount() / allOcc;
+//                        System.out.println("propNode " + nodeLevel.getData().getCount() + " / " + words + " = " + propNode);
+//                        System.out.println("propNodeCond " + nodeLevel.getData().getCount() + " / " + allOcc + " = " + propNodeCond);
+                        double entropyCond = propNode * (propNodeCond * (Math.log(1 / propNodeCond) / Math.log(2)));
+//                        System.out.println("entropyCond " + propNode + " * (" + propNodeCond + " * (" + "Math.log(1 / " + propNodeCond + ") / Math.log(2)))" + " = " + entropyCond);
+//                        System.out.println("entropy "+ entropyCond*propNode);
+//                        System.out.println();
+                        entropy += entropyCond;
+                    }
+                }
+            }
+
+            return entropy;
         }
-        System.out.println(entropy);
-        return 0.0;
+
     }
 }
