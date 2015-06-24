@@ -4,7 +4,10 @@ package simo.tree;
  * Created by simo on 24/06/15.
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GenericTree<T> {
 
@@ -77,6 +80,15 @@ public class GenericTree<T> {
         return (root == null);
     }
 
+    public List<GenericTreeNode<T>> build() {
+        List<GenericTreeNode<T>> returnList = null;
+
+        if (root != null) {
+            returnList = build(root, GenericTreeTraversalOrderEnum.PRE_ORDER);
+        }
+
+        return returnList;
+    }
     public List<GenericTreeNode<T>> build(GenericTreeTraversalOrderEnum traversalOrder) {
         List<GenericTreeNode<T>> returnList = null;
 
@@ -120,6 +132,16 @@ public class GenericTree<T> {
 
         if (root != null) {
             returnMap = buildWithDepth(root, traversalOrder);
+        }
+
+        return returnMap;
+    }
+
+    public Map<GenericTreeNode<T>, Integer> buildWithDepth() {
+        Map<GenericTreeNode<T>, Integer> returnMap = null;
+
+        if (root != null) {
+            returnMap = buildWithDepth(root, GenericTreeTraversalOrderEnum.PRE_ORDER);
         }
 
         return returnMap;
