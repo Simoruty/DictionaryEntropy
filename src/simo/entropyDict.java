@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by simo on 24/06/15.
@@ -114,7 +116,7 @@ public class entropyDict {
                         double propNode = (double) nodeLevel.getData().getCount() / words;
                         double propNodeCond = (double) nodeLevel.getData().getCount() / allOcc;
 
-                        double entropyCond = propNode*(Math.log(1 / propNodeCond) / Math.log(2));
+                        double entropyCond = propNode * (Math.log(1 / propNodeCond) / Math.log(2));
 
                         entropy += entropyCond;
                     }
@@ -124,5 +126,39 @@ public class entropyDict {
             return entropy;
         }
 
+    }
+
+    public static ArrayList<Character> predictWord(GenericTree<NodeMod> tree, int level, String word) {
+
+        ArrayList<Character> predicted = new ArrayList<>();
+        TreeSet<NodeMod> childrenOrder = new TreeSet<>();
+
+        char[] wordChar = word.toCharArray();
+        GenericTreeNode<NodeMod> node = tree.getRoot();
+        boolean exist = false;
+        for (char c : wordChar) {
+            if (node.hasChildren()) {
+                exist = false;
+                for (GenericTreeNode<NodeMod> children : node.getChildren()) {
+                    if (children.getData().getName() == c) {
+                        exist = true;
+                        int count = children.getData().getCount();
+                        count++;
+                        children.getData().setCount(count);
+                        node = children;
+                    }
+                }
+            }
+        }
+        if (exist) {
+            for (GenericTreeNode<NodeMod> children : node.getChildren())
+//                        double propNode = (double) children.getData().getCount() / words;
+                childrenOrder.add(children.getData());
+
+            for (NodeMod nodeModGenericTreeNode : childrenOrder)
+                predicted.add(nodeModGenericTreeNode.getName());
+
+            return predicted;
+        } else return null;
     }
 }

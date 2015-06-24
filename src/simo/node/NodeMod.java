@@ -3,7 +3,7 @@ package simo.node;
 /**
  * Created by simo on 24/06/15.
  */
-public class NodeMod {
+public class NodeMod implements Comparable {
     private char name;
     private int count = 1;
     private int level = 1;
@@ -65,5 +65,14 @@ public class NodeMod {
                 ", count=" + count +
                 ", level=" + level +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (this.count > ((NodeMod) o).count)
+            return -1;
+        if (this.count > ((NodeMod) o).count)
+            return 1;
+        return 0;
     }
 }
