@@ -33,7 +33,7 @@ public class Runner {
         Scanner keyboard = new Scanner(System.in);
 
         do{
-            System.out.print("enter an character: ");
+            System.out.print("enter a character: ");
             single = keyboard.next().charAt(0);
             word += single;
             pre = predictWord(tree, countWord, word);
