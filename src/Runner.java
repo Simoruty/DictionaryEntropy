@@ -10,11 +10,9 @@ import static simo.entropyDict.entropyLevel;
  * Created by simo on 24/06/15.
  */
 
-
 public class Runner {
 
     public static final String DIRDICTPATH = "res/dictEng";
-
 
     public static void main(String[] args) throws IOException {
         GenericTree<NodeMod> aa = buildTreeByDict(DIRDICTPATH);
