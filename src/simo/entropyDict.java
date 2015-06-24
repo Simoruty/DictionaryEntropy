@@ -21,6 +21,7 @@ public class entropyDict {
         return tree.build();
     }
 
+    
     public static GenericTree<NodeMod> buildTreeByDict(String path) throws IOException {
 
         GenericTree<NodeMod> tree = new GenericTree<>();
@@ -41,25 +42,22 @@ public class entropyDict {
                 if (node.hasChildren()) {
                     boolean exist = false;
                     for (GenericTreeNode<NodeMod> children : node.getChildren()) {
-                        if (children.getData().equals(new NodeMod(c))) {
+                        if (children.getData().getName() == c) {
                             exist = true;
                             int count = children.getData().getCount();
                             count++;
                             children.getData().setCount(count);
-                            children.getData().setLevel(level);
                             node = children;
                         }
                     }
                     if (!exist) {
-                        NodeMod n = new NodeMod(c);
-                        n.setLevel(level);
+                        NodeMod n = new NodeMod(c, level);
                         GenericTreeNode<NodeMod> nodeNew = new GenericTreeNode<>(n);
                         node.addChild(nodeNew);
                         node = nodeNew;
                     }
                 } else {
-                    NodeMod n = new NodeMod(c);
-                    n.setLevel(level);
+                    NodeMod n = new NodeMod(c, level);
                     GenericTreeNode<NodeMod> nodeNew = new GenericTreeNode<>(n);
                     node.addChild(nodeNew);
                     node = nodeNew;

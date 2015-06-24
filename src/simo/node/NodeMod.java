@@ -12,9 +12,9 @@ public class NodeMod {
         this.name = name;
     }
 
-    public NodeMod(char name, int count) {
+    public NodeMod(char name, int level) {
         this.name = name;
-        this.count = count;
+        this.level = level;
     }
 
     public void setLevel(int level) {
@@ -48,7 +48,8 @@ public class NodeMod {
 
         NodeMod nodeMod = (NodeMod) o;
 
-        return name == nodeMod.name;
+        if (name != nodeMod.name) return false;
+        return level == nodeMod.level;
 
     }
 
