@@ -1,1 +1,1 @@
-# DictionaryEntropy
+# A simple predictive keyboard probability based
