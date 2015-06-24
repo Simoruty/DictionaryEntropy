@@ -1,14 +1,8 @@
 *.class
-<<<<<<< HEAD
-bin/
-.*
+
 !/.gitignore
-*.xml
-*.png
 *.iml
-./idea
-*.jar
-=======
+.idea
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -20,4 +14,3 @@ bin/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
->>>>>>> 4b41c062388013eb9f44406dba48446636395823
