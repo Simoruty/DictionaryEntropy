@@ -21,7 +21,7 @@ public class entropyDict {
         return tree.build();
     }
 
-    
+
     public static GenericTree<NodeMod> buildTreeByDict(String path) throws IOException {
 
         GenericTree<NodeMod> tree = new GenericTree<>();
