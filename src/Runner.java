@@ -16,15 +16,17 @@ public class Runner {
     public static final String DIRDICTPATH = "res/dictEng";
 
     public static void main(String[] args) throws IOException {
-        GenericTree<NodeMod> aa = buildTreeByDict(DIRDICTPATH);
+        GenericTree<NodeMod> tree = buildTreeByDict(DIRDICTPATH);
         double enTot = 0;
-        for (int i = 0; i < depth(aa); i++) {
-            double val = entropyLevel(aa, i);
+        for (int i = 1; i <= depth(tree); i++) {
+            double val = entropyLevel(tree, i);
             enTot += val;
-            System.out.println(val);
+            System.out.println("Level " + i + " : " + val);
         }
-        System.out.println(enTot);
-//
+        System.out.println("Total : " + enTot);
+    }
+
+
 //  /*
 //         We're building a tree that looks like this:
 //
@@ -56,5 +58,4 @@ public class Runner {
 //
 //        tree.setRoot(root);
 
-    }
 }

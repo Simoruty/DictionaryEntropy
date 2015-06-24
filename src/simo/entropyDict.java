@@ -17,11 +17,12 @@ public class entropyDict {
 
     private static int words = 0;
 
+    // Restituisce la lista di tutti i nodi dell'albero
     private static List<GenericTreeNode<NodeMod>> allNodes(GenericTree<NodeMod> tree) {
         return tree.build();
     }
 
-
+    // Costruzione dell'albero sulla base del dizionario
     public static GenericTree<NodeMod> buildTreeByDict(String path) throws IOException {
 
         GenericTree<NodeMod> tree = new GenericTree<>();
@@ -70,6 +71,7 @@ public class entropyDict {
         return tree;
     }
 
+    // Calcola la profondita massima dell'albero
     public static int depth(GenericTree<NodeMod> tree) {
         int max = 0;
         List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
@@ -81,6 +83,7 @@ public class entropyDict {
 
     public static double entropyLevel(GenericTree<NodeMod> tree, int level) {
 
+        // Calcola entropia per il primo livello
         if (level == 1) {
             double entropy = 0;
             List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
@@ -92,7 +95,9 @@ public class entropyDict {
             }
             return entropy;
 
-        } else {
+        }
+        // Calcola entropia per tutti gli altri livelli
+        else {
             double entropy = 0;
 
             List<GenericTreeNode<NodeMod>> nodes = allNodes(tree);
