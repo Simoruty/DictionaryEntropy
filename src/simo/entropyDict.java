@@ -100,21 +100,17 @@ public class entropyDict {
             for (GenericTreeNode<NodeMod> node : nodes) {
                 if (node.getData().getLevel() == level - 1) {
                     int allOcc = 0;
-//                    System.out.println("FIGLI " + node.getNumberOfChildren());
-                    for (GenericTreeNode<NodeMod> brothers : node.getChildren()) {
-//                        System.out.println(brothers.getData());
+
+                    for (GenericTreeNode<NodeMod> brothers : node.getChildren())
                         allOcc += brothers.getData().getCount();
-                    }
 
                     for (GenericTreeNode<NodeMod> nodeLevel : node.getChildren()) {
+
                         double propNode = (double) nodeLevel.getData().getCount() / words;
                         double propNodeCond = (double) nodeLevel.getData().getCount() / allOcc;
-//                        System.out.println("propNode " + nodeLevel.getData().getCount() + " / " + words + " = " + propNode);
-//                        System.out.println("propNodeCond " + nodeLevel.getData().getCount() + " / " + allOcc + " = " + propNodeCond);
-                        double entropyCond = propNode * (propNodeCond * (Math.log(1 / propNodeCond) / Math.log(2)));
-//                        System.out.println("entropyCond " + propNode + " * (" + propNodeCond + " * (" + "Math.log(1 / " + propNodeCond + ") / Math.log(2)))" + " = " + entropyCond);
-//                        System.out.println("entropy "+ entropyCond*propNode);
-//                        System.out.println();
+
+                        double entropyCond = propNode*(Math.log(1 / propNodeCond) / Math.log(2));
+
                         entropy += entropyCond;
                     }
                 }

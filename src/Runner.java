@@ -18,9 +18,10 @@ public class Runner {
     public static void main(String[] args) throws IOException {
         GenericTree<NodeMod> aa = buildTreeByDict(DIRDICTPATH);
         double enTot = 0;
-
         for (int i = 0; i < depth(aa); i++) {
-            enTot += entropyLevel(aa, i);
+            double val = entropyLevel(aa, i);
+            enTot += val;
+            System.out.println(val);
         }
         System.out.println(enTot);
 //
